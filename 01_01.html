@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Interactive Web</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <style>
+        .box-container {
+            display: flex;
+        }
+        .box {
+            width: 100px;
+            height: 100px;
+            border: 2px solid black;
+            background: rgba(255, 255, 0, 0.7);
+
+            /* 몇 초동안 에니메이션이 지속이 됨  */
+            /* 
+                크롬의 개발자도구를 확인하면 원래의 속성 내용을 살필 수 있음 (css)
+                timing-function : 가속도 (ease : 가속도, 좀 더 부드럽고 자연스러움.) linear : 등속도 
+                                : open cubic bezier editor를 이용하여 효과 timing-function을 자유롭게 수정하고 반영할 수 있음
+                                (직접 계산하지 않아도 계산식을 제공해줌.)
+                duration : 재생시간, delay : 애니메이션 실행 시작 
+                에니메이션은 값의 변화가 있을 때 그 중간과정을 만들어주는 용도!
+                단순히 transform에만 적용되는 것이 아니라 크기, 색상이 변할 때도 적용 가능 
+                수치로 표현될 수 있는 값이 변할 때 : width, 색상 등은 가능. auto는 숫자가 아니기 때문에 에니메이션 불가 (중요!)                
+             */
+            transition: 1s linear;         
+        }
+        .box:hover {
+            /* width, height 두배로 준거와 transform scale 2배는 전혀 다름 */
+            /* w, h 두배로 주면 다른 애들 밀리면서 커짐 */
+            /*  
+                다른 애들 안 건들이고 scale준 컴포넌트만 크기 조절하기 때문에
+                성능도 좋다.
+             */
+            transform: scale(2) rotate(45deg);
+            /* transform: skew(30deg); */
+            /* transform:  translate(30px, 10px); */
+            /* transform: translateX(-30px); */
+            /* transform: scale(1.5); */
+            /* transform: rotate(30deg); */
+
+            /* 기준점 변경 */
+            /* transform-origin:  left top;     */
+
+            /* 숫자로 기준점 선정 가능. (x, y순서) */
+            /* transform-origin: 100% 100%; */
+
+        }
+    </style>
+</head>
+
+<body>
+    <!-- width, height 기준점을 마음대로 정할 수 있는 것  -->
+    <!-- 성능이 굉장히 좋음. native앱 수준으로 부드러움. 하드웨어 가속(GPU) 이용 -->
+    <h1>CSS Transform</h1>    
+    <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, rerum ad laborum nulla, cum voluptatibus consequatur reiciendis enim harum maiores illo quam fuga, numquam ullam dolorem? Voluptate tempore consequuntur commodi!
+    </p>
+    <div class="box">A</div>
+    <div class="box">B</div>
+    <div class="box">C</div>
+    <div class="box">D</div>
+    <div class="box">E</div>
+    <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae rem eveniet non esse provident placeat dolor suscipit temporibus mollitia asperiores ipsa voluptatum autem necessitatibus iure, architecto modi quasi blanditiis libero.
+    </p>
+</body>
+</html>
