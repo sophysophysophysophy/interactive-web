@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Interactive Web</title>
+    <style>
+
+        @keyframes spaceship-ani {
+            /* 0% === from (시작점은 생략가능) */
+            /* 100% === to */
+            to {
+                /* animation으로 background position 정의 */
+                /* 0위치, 즉 첫지점으로 이미지가 흘러가야됨. 
+                    따라서 마지막 이미지가 첫 지점으로 가기 위해서 : -2550이 되어야 하니까
+                    -2550, 0 으로 지정한 것!
+                 */
+                background-position: -2550px 0;
+            }
+        }
+
+        /* 선명도(고해상도)를 위하여 원래 이미지의 픽셀 /2 로 잡고 진행  */
+        .spaceship{
+            width: 150px;
+            height: 150px;
+
+            /* 크기 : / (슬래쉬) 이후에 표현   (가로크기, 세로크기 ) :auto(나머지 하나의 변화 비율에 맞춰 자동으로 크기 조절*/
+            background: url('images/sprite_spaceship.png') no-repeat 0 0 / auto 150px;
+
+            /* 그냥 움직이는 것이 아니라 단계수를 지정하여 움직임... -> steps */
+            /* png 장점 ? 1. gif는 투명도가 적용되지 않음. 가장자리 반투명이 하얗게 다 차서 깨짐 => animation의 필요성  */
+            /* 투명한 알파채널이 적용된 png로 ani쓰는 이유임 ! */
+            /* 2. 움직임, animation을 코드로 제어하는 것이 가능함. */
+            /* 구글 두들 만들때에도 이 기법을 많이 사용함. */
+            animation: spaceship-ani 2s infinite steps(17);
+        }
+    </style>
+</head>
+<body>
+    <!-- frame-by-frame을 css animation으로 구현 : 셀 에니메이션 -->
+    <!-- 장면 장면별로 하나하나 그려서 움직임 표현 ( 노가다 방식 ) -->
+    <!-- css에서 이미지 스프라이트를 사용하여 구현 -->
+    <div class="spaceship"></div>
+</body>
+</html> 

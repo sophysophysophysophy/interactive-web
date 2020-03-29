@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Interactive-web</title>
+    <style>
+        /* keyframe : object가 이동하는 animation이 있을 때, 에니메이션 중간에 변화를 갖는 것 */
+        /*          어디서든 중간에 변화를 줄 수 있음 */
+        @keyframes sample-ani {
+            /* timeline 개념이 있음.  */
+            0% {
+                transform : translate(0,0);
+            }
+            50% {
+                background: red;
+                transform : translate(300px,0);
+            }
+            100% {
+                transform : translate(400px,500px);
+            }
+        }
+        .box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100px;
+            height: 100px;
+            border: 2px solid #000;
+            background: #fff000;
+
+            /* n번 반복 : infinite도 가능  ,, (animation-direction)reverse : 반대로 , alternate : 왔던길 반복 이동*/
+            /* animation: sample-ani 3s linear infinite alternate-reverse;  */
+            
+            /* forwards : 마지막 모습으로 멈춤      play-state: paused (일시정지 ) running : 러닝*/
+            animation: sample-ani 3s linear forwards; 
+        }   
+        /* hover하면 멈춤... 하 .... 왤케 .... 신기하냐  */
+        .box:hover {
+            animation-play-state: paused;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Animation</h1>
+    <div class="box">BOX</div>
+</body>
+</html>

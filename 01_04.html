@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Web</title>
+    <style>
+
+        /* viewport : 창크기. 가로 : vw, 세로 : vh */
+        /* 창크기의 %를 지정해줌 
+            60vw : 총 viewport 크기의 60% 너비 사용하겟다.
+            60vh : 총 viewport 크기의 60% 높이 사용하겠다.
+        */
+        .world{
+            width: 80vw;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff000;
+
+            /* 3D공간으로 만들어줌 -원근감 */
+            /* 그래야 이 공간의 오브젝트들이 rotate등의 속성 사용 가능 */
+            /* 가까이 있어야 3D효과 자체가 극적으로 보임. */
+            /* perspective 자체가 얼마나 가까이 오브젝트를 볼 것인지 지정  */
+            /* perspective: 500px; */
+
+            /* 500px과의 차이 확연히 드러남 */
+            /* perspective: 100px ;   */
+        }
+        .card {
+            width: 100px;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 1em;
+            border-radius: 0.5em;
+            /* rem : html에 맞춰 크기 조정이 됨 (절대적), em : rem에 상대적.  rem이 늘어나면 (fontsize에 따라서 border가상대적인 비율 유지.) */
+            /* 패딩 등을 줄 때에도 rem이 아니라 em을 사용하는 경우 많음 
+             */
+            font-size: 1.5rem;
+            background: red;
+
+            /* 감싸고 있는 world에 주면 눈의 시점에 리얼하게 적용됨 
+                각각의 오브젝트의 rotate에는 차이 있음.
+            */
+            /* 회전되는 el 자체에다가 perspective주면 각각 적용됨. */
+            transform: perspective(500px) rotateY(40deg);
+
+        }
+    </style>
+</head>
+<body>
+    <!-- 
+        css 3D 
+        고급스러운 기술, 알아두면 참 좋은 기술 
+        무대 자체가 3D여야 오브젝트( ex카드 )도 rotate가능
+     -->
+    <div class="world">
+     <div class="card">CARD</div>
+     <div class="card">CARD</div>
+     <div class="card">CARD</div>
+    </div>
+    </body>
+</html>
