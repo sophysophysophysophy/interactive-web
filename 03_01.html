@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Interactive Web</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <style>
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        .characters {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            background: #fff000;
+        }
+        .ilbuni {
+            width: 100px;
+            cursor: pointer;
+        }
+        .characters .ilbuni {
+            display: inline-block;
+        }
+        .special {
+            border: 10px dashed red;
+        }
+    </style>
+    <!-- head에다 script 작성하는 경우 많다. 하지만  
+        HTML를 브라우저에서 읽어드릴 때 위에서부터 읽어내림.
+        따라서 body의 ilbuni 객체를 읽지 않았기에 head에서는 모르는 객체
+        script를 여기에 작성하면 객체를 읽어드릴 수 없기 때문에 정확한 객체를 
+        가져올 수 없음.
+        문서 로드가 끝난 상태에서 script를 실행해야함. => 로드 이벤트 사용하면 됨.
+        하지만 모든 로드가 끝난 후에 동작을 하는 이벤트이기에 기다리는 시간 많음. 비효율
+        => DomContentLoaded : 돔의 컨텐트가 다 로드되었을 때. 돔 구조만 로드되면 바로 실행. HTML 골격 구조만 로드되면 
+        실행됨
+
+        하지만 이게 번거로우니 body 끝나기 직전에 script 작성하면 
+        이러한 이벤트 리스너 필요하지 않음!
+        하지만 이것의 좋지 않음 점이 또 있음 ; 
+        js 코드에서는 전역변수 최소화하는 것이 좋음 => 변수명 충돌 가능성 높음
+        => 함수, 블럭 안에 변수 선언하는 것이 좋다
+    -->
+    <!-- <script>
+        //문서 전체의 로드가 끝나면 이 함수를 실행하라는 코드
+        // window.addEventListener('DomContentLoaded', function() {
+        window.addEventListener('load', () => {
+            const ilbuni = document.querySelector('.ilbuni.c')   //두개의 class 동시에 가지는 객체
+
+            clickInbuniHandler = () => {
+                ilbuni.classList.toggle('special')
+            }
+
+            ilbuni.addEventListener('click', () => {
+                clickInbuniHandler()
+            })
+        })
+        
+    </script> -->
+</head>
+<body>
+    <div class="characters">
+        <div class="ilbuni a">
+            <img src="images/ilbuni_0.png" alt="일분이">
+        </div>
+        <div class="ilbuni b">
+            <img src="images/ilbuni_1.png" alt="일분이">
+        </div>
+        <div class="ilbuni c">
+            <img src="images/ilbuni_2.png" alt="일분이">
+        </div>
+        <div class="ilbuni d">
+            <img src="images/ilbuni_3.png" alt="일분이">
+        </div>
+    </div>
+
+    <script>
+        // 처음에 load되면 초기화해주는 함수
+        // 따라서 처음에만 호출하면 됨 
+        // 전역변수보다는 한 함수로 정의해주는것이 좋음 
+        // 함수 선언문을 호출하면 에러 => 함수 통째로 괄호로 감싼 형태에서 호출하면 에러 나지 않음 ;;
+        // (() => {
+        //     const ilbuni = document.querySelector('.ilbuni.c')   //두개의 class 동시에 가지는 객체
+
+        //     clickInbuniHandler = () => {
+        //         ilbuni.classList.toggle('special')
+        //     }
+
+        //     ilbuni.addEventListener('click', () => {
+        //         clickInbuniHandler()
+        //     })
+        // })()  
+
+        //위와 같은 코드
+        // (function(){
+        //     const ilbuni = document.querySelector('.ilbuni.c')   //두개의 class 동시에 가지는 객체
+
+        //     clickInbuniHandler = () => {
+        //         ilbuni.classList.toggle('special')
+        //     }
+
+        //     ilbuni.addEventListener('click', () => {
+        //         clickInbuniHandler()
+        //     })
+        // })()  
+
+
+        //this와 이벤트 객체 
+        (() =>{
+            const characters = document.querySelector('.characters')
+            function clickHandler(e){
+                console.log(this)
+
+                //e = 이벤트 객체 : 지금 발생한 이벤트에 대한 정보 담고있는 객체
+                console.log(e)
+
+                //currentTarget , this : 이벤트를 발생시킨 타겟. 즉 charaacters (characters의 addEventListener로 동작한 함수이기에)
+                // console.log(e.currentTarget) === console.log(this)
+                
+                //직접 클릭한 부분에 있는 객체를 잡아낼 수 있음
+                console.log(e.target)
+                
+                
+            }
+
+            characters.addEventListener('click', clickHandler)
+        })()
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Interactive Web</title>
+    <!-- 그리드와 flex box 의 차이점 
+        그리드 : x,y 축 모두 존재. row, col이용하여 위치 조정 가능 
+        flex box : 축이 한 방향 row만 존재 ( 가로) 아니면 col만 존재 (세로 )
+                    그렇게만 element가 배치 됨 .
+        따라서 그리드로 전체 페이지의 골격을 잡고 내부의 요소들은 flex로 정렬을 하는 등으로 그리면 
+            편리함!
+            지금은 grid를 지원하는 브라우저 많지 않음. 당장 실무 적용은 힘들지만 미리 공부해야 함. 
+            flex는 당장 실무 적용 가능.
+            IE 11 이상이면 flex box 사용 가능 
+    -->
+    <style>
+        .container {
+            /* flex 기능은 display 속성에 들어감 */
+            display: flex;
+            /* 축의 방향 변경 */
+            /* reverse : element 정렬 반대  */
+            /* flex-direction: column-reverse; */
+
+            /* justify-content : main 축 위에서 정렬하는 속성 */
+            /* space-between : 빈 공간 같은 width로 나눠가짐 */
+            /* space-around : 한 element 주변 여백 균일하게 나누어 가짐  */
+            /* justify-content: flex-start;        기본 값 */
+
+            /* align-items : 축의 수직방향으로 element 정렬 */
+            /* stretch : default */
+            /* flex-start : 위  */
+            /* end : 아래  */
+            /* center : 가운데 */
+            /* align-items: flex-start; */
+
+            height: 80vh;
+            background: gray;
+        }
+        .item {
+            /* flex-grow : 숫자를 주면 (비율)부모 div에 맞춰 아이템 크기 조절됨 */
+            /* 비율은 width를 비율대로 나눠갖는 것이 아니라 각각의 "여백"을 비율로 나눠갖는것!!!! */
+            /* 여백 배분을 균일하게 함 */
+            flex-grow: 1;
+
+            /* 원래 컨텐츠가 점유하는 영역 크기 세팅 */
+            /* 0으로 해주면 : 우리가 정확하게 의도하는 비율로 나눌 수 있음! */
+            /* 기본값은 auto */
+            flex-basis: 0;
+
+            /* flex라는 축약형으로 사용 가능 1: flex-grow */
+            /* flex 사용할 때 (축약형) basis는  자동으로 0%로 세팅됨 */
+            /* basis 기본값은 auto지만 flex 축약형 사용하면 0%로 세팅되는 것 */
+            /* flex-shrink : grow와 반대. 줄어들 때의 비율 => 생략하면 grow와 똑같이 세팅됨.*/
+
+            flex: 1;
+            /*  === flex-grow : 1 ; flex-shrink : 1 ; flex-basis : 0 ;  */
+            
+            padding: 2em;
+            border:  3px solid black;
+            background: white;
+        }
+
+        /* 각 element 별로 비율 차별적으로 줌 : 물론 여분을 비율대로 갖겠다는 의미! */
+        /* .item:nth-child(1) { flex-grow: 1; }
+        .item:nth-child(2) { flex-grow: 5; }
+        .item:nth-child(3) { flex-grow: 2; }
+        .item:nth-child(4) { flex-grow: 3; }
+        .item:nth-child(5) { flex-grow: 1; } */
+
+    </style>
+</head>
+<body>
+    <!-- .container>.item*5 -->
+    <div class="container">
+        <div class="item">AAA</div>
+        <div class="item">B</div>
+        <div class="item">CCCCC</div>
+        <div class="item">DDD</div>
+        <div class="item">E</div>
+    </div>
+</body>
+</html>
