@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .menu {
+            background: black;
+            width: 700px;
+            height: 400px;
+        }
+        .btn-label {
+            text-shadow: rgba(255, 255, 255, 1) 0 1px 0 ;
+
+            /* 클릭 이벤트를 받지 않움 */
+            /* pointer-events: none; */
+        }
+        .icon {
+            /* 클릭 이벤트를 받지 않움 */
+            /* pointer-events: none; */
+            width: 60px;
+        }
+    </style>
+</head>
+<body>
+    <div class="menu">
+        <!-- <button class="menu-btn" data-value="1">
+            <img class="icon" src="../images/ilbuni_1.png" alt="">
+            <span class="btn-label">일분이 1</span>
+        </button>
+        <button class="menu-btn" data-value="2">
+            <img class="icon" src="../images/ilbuni_2.png" alt="">
+            <span class="btn-label">일분이 2</span>
+        </button>
+        <button class="menu-btn" data-value="3">
+            <img class="icon" src="../images/ilbuni_3.png" alt="">
+            <span class="btn-label">일분이 3</span>
+        </button> -->
+    </div>
+
+    <script>
+        // 이벤트 위임 보강 영상
+        const menu = document.querySelector('.menu')
+
+
+        //이벤트 위임에서 문제 : 각 버튼안의 span, img를 클릭하면 target이 그 속성이 됨. 
+        // 하나의 객체로 판별해야 하기에 이 방식은 문제가 있음  ===> 1. 부모 노드를 조사함 2. css로 확인
+        // 두 방법 중 정답은 없지만 css 방법이 깔끔하긴 함.
+        // 하지만 pointer-events : none을 설정하면 자식들(하위 엘리멘트들)의 pointer event도 사용할 수 없게 됨 => 신중히 사용해야함 
+        // ====> 이럴 때는 script로 제어해야함
+
+        // css방법 : pointer-events: none;
+        function clickBtnHandler(event) {
+            // if(event.target)
+            // console.log(event.target);
+
+            // data-value : 이 속성을 가진 dataset 객체가 자동으로 생성
+            // console.log(event.target.getAttribute('data-value'))
+            //위의 getAttribute 함수와 똑같이 동작함
+            // console.log(event.target.dataset.value)
+
+            // 부모 노드 조사해서 타겟인지 확인하는 방법 code
+
+            let elem = event.target
+            while(!elem.classList.contains('menu-btn')) {
+                elem = elem.parentNode
+
+
+                // menu를 눌렀을 때 계속 부모를 확인함. body - html - document까지 타고 올라가게 됨 => 이는 classList 속성 없기에 에러 !
+                // ==> 제한을 걸어주면 됨 ( element가 body까지 올라갔을 때는, 해당하는 객체 아니라는 것이니까 종료시키면 됨)
+                if(elem.nodeName === 'BODY') {
+                    elem = null
+                    return 
+                }
+            }
+            console.log(elem.dataset.value);
+            
+            
+        }
+
+        // for(let i = 0 ; i < btns.length; i++) {
+        //     btns[i].addEventListener('click', clickBtnHandler)
+        // }
+
+        menu.addEventListener('click', clickBtnHandler)
+
+
+
+        // 동적으로 컨텐츠 생성할 때 
+        // 이벤트 위임을 썼기 때문에 동작이 제대로 되는 것.
+        // 무한 스크롤 같은 것들도 이벤트 위임으로 장점 
+        // 이벤트 위임을 사용하지 않았다면 동적으로 생성되는 객체들에 하나하나 addEventListener 설정해주어야 하는 번거로움. 클릭 이벤트 처리하게끔 따로 처리해주어야 함
+        window.addEventListener('click', () => {
+            const htmlStr = ` <button class="menu-btn" data-value="1">
+                                <img class="icon" src="../images/ilbuni_1.png" alt="">
+                                <span class="btn-label">일분이 1</span>
+                            </button>
+                            <button class="menu-btn" data-value="2">
+                                <img class="icon" src="../images/ilbuni_2.png" alt="">
+                                <span class="btn-label">일분이 2</span>
+                            </button>
+                            <button class="menu-btn" data-value="3">
+                                <img class="icon" src="../images/ilbuni_3.png" alt="">
+                                <span class="btn-label">일분이 3</span>
+                            </button>`
+            menu.innerHTML = htmlStr
+        })
+    </script>
+</body>
+</html>

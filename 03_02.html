@@ -8,10 +8,16 @@
     <link rel="stylesheet" href="css/reset.css">
     <style>
         .stage {
+            /* 밖으로 삐져나갔을 때 스크롤이 생기는 것이 아니라 숨김 처리가 됨 ==>  oerflow : hidden */
             overflow: hidden;
             position: relative;
+
+            /* 4:3 비율의 박스 완성됨 
+              height라고 해서 무조건 vh를 쓸 필요는 없다.
+              vw를 height에 사용 가능. 비율 줄 수 있음. 기준이 똑같기를 원할 때
+             */
             width: 100vw;
-            height: 75vw;
+            height: 75vw;       
             background: #fff000;
         }
         @keyframes moving {
@@ -28,13 +34,22 @@
             height: 100px;
             background-repeat: no-repeat;
             background-position: 50% 50%;
+
+            /* contain : 사이즈 꽉 차게 됨. 이미지가 짤리지 않고 틀에 꽉차게 해줌 이미지 온전하게 다 보임 */
+            /* cover(꽉차게 해줘서 이미지 짤릴 수 잇음) / contain은 차이가 있음. */
             background-size: contain;
+
+            /* moving , 계속 반복 : infinite, from - to -from -to 왔다갔다 : alternate */
             animation: moving infinite alternate;
         }
+
+        /*  === .ilbuni:nth-of-type(1) */
         .ilbuni.a {
             left: 5%;
             bottom: 5%;
             background-image: url('images/ilbuni_0.png');
+
+            /* animation 속도 제어 */
             animation-duration: 2s;
         }
         .ilbuni.b {
@@ -60,6 +75,32 @@
 
     <script>
         // 직접 타이핑 해보세요
+        //전역변수 사용 회피를 위하여 함수 안에서 코딩
+        (()=> {
+            // jquery에서는 .ilbuni로 객체에 접근 가능했음. 해당 class 가진 객체에 알아서 click 이벤트 발생 시켜줌 
+            // 하지만 일반 dom script에서는 그런 기능 없음. 따라서 세개 객체 각각 가져와야 함
+            const ilbuniGroup = document.querySelectorAll('.ilbuni')
+            const stage = document.querySelector('.stage')      //ilbuni 리스트의 부모 
+
+            function clickHandler() {
+                // 이벤트 핸들러로 실행이 되면
+                // 해당 함수의 this는 해당 이벤트가 발생한 객체. 
+                // e.currentTarget === this  : 이벤트가 발생한 객체 똑같이 가리킴
+                
+                //removechild : 자식을 날리는 것 => 부모 객체에서 지워줘야함
+                // stage.removeChild(this)
+                
+                // 부모 element의 이름 모를 때가 더 많기에 parentNode로 부모 element에 접근하여 지워주는 것 가능 
+                this.parentNode.removeChild(this)                
+            }
+
+            for(let i = 0 ; i < ilbuniGroup.length; i++) {
+                ilbuniGroup[i].addEventListener('click', clickHandler)
+            }            
+
+        })()
+
+
     </script>
 </body>
 </html>
