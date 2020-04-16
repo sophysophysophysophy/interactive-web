@@ -24,6 +24,12 @@
         // setTimeout : 지연 시킬 의도로 사용
         timeId = setTimeout(sample, 3000)
 
+        // 계속 반복시키는 함수 : setInterval
+        // timeId = setInterval(sample)
+
+        // 1000ms마다 반복
+        // timeId = setInterval(sample, 1000)
+
         console.log(timeId);
 
         // setTimeout은 리턴값이 숫자로 있음
@@ -32,6 +38,9 @@
         //취소 버튼을 누르면 setTimeout 취소
         btn.addEventListener('click', () => {
             clearTimeout(timeId)
+
+            // interval 취소
+            // clearInterval(timeId)
         })
 
     </script>
