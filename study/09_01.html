@@ -25,10 +25,24 @@
         timeId = setTimeout(sample, 3000)
 
         // 계속 반복시키는 함수 : setInterval
+        // setInterval : 반복은 해주지만 CPU가 처리할 능력이 안되면 버벅이고 배터리 빨리 닳는 등 단점 있음
+        // 이러한 단점을 개선한 메소드 : requestAnimation Frame ( IE 10 부터 지원)
         // timeId = setInterval(sample)
 
         // 1000ms마다 반복
         // timeId = setInterval(sample, 1000)
+
+        //requestAnimationFrame : 반복시킬 함수 안에 작성 
+        // function sample() {
+        //     console.log('sample!')
+        //     timeId = requestAnimationFrame(sample)
+        // }
+        // sample()
+        //  => 목표 : 1분에 60번 실행이 목표 
+
+        // requestAnimationFrame : 원래 한번만 실행. 따라서 함수 안에서 계속 호출하는 것!! ( 재귀적으로 반복 되는 것)
+        // 09_03.html 참조!!
+
 
         console.log(timeId);
 
