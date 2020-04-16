@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object </title>
+    <style>
+        .card {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100px;
+            height: 150px;
+            border: 2px solid black;
+            border-radius: 10px;
+            font-size: 3rem;
+            font-weight: 900;
+        }
+    </style>
+</head>
+<body>
+    <h1>Object</h1>
+    <script>
+        // 객체 
+        // js에서 기본 데이터 타입 : 숫자, 문자열, boolean, undefined, null 을 제외한 나머지는 object ( 함수, 배열 포함. (객체 상속 받은 아이들))
+        /* 
+            속성 , 동작(액션)으로 이루어진 집합체 : 객체 
+
+        */
+        // const person = {} 
+        // // 위와 같은 객체 생성 문법 
+        // // const person = new Object()
+
+        // // name, age, introduce : 속성들 
+        // // 동작, 함수 : 속성 중 method
+        // person.name = '일분이'
+        // person.age = 10
+        // // console.log(person)
+        
+        // // 동작 추가
+        // // 함수도 값. 함수도 객체이기 때문에.
+        // // 속성 중 특별히 값이 함수인 경우를 method라고 부른다
+        // person.introduce = () => {
+        //     console.log("안녕하세요. 저는 일분이이고 나이는 10살이에요")
+        // }
+        
+        // // 함수 호출
+        // person.introduce()
+
+        //이런 식으로 객체 선언도 가능!
+        // const person = {
+        //     nickname : '일분이',
+        //     age : 10,
+        //     introduce() {
+        //         // age만 쓰면 에러남 : 정의되지 않은 변수  = > const, let 등으로 정의되지 않았기에 쓰면 안됨
+        //         // 우리는 변수 만든 적이 없음.
+        //         // name은 에러가 나지 않음 : window 전역 객체에 name이라는 변수 이미 사용되고 있기 때문에  name === window.name 으로 쓴거랑 똑같은 결과가 나오는 것 (window 생략된 것)
+        //         // 더 명확하게 nickname을 쓰면 에러남. 따라서 변경 
+        //         // this를 써주면 에러나지 않음. 
+        //         // this : 이 함수가 실행되는 context에 따라서  바뀜. this란 메서드를 실행한 주체 객체를 가리킴
+
+        //         console.log('안녕하세요 저는'+ this.nickname+'이고, 나이는' + this.age+'살이에요')
+        //     }
+
+        //     //객체의 메소드 이렇게 선언도 가능
+        //     // introduce : function() {
+        //     // }
+        // }
+
+        // const person2 = {
+        //     nickname : '이분이',
+        //     age : 8,
+        //     introduce() {
+        //         // ES6 version
+        //         console.log(`안녕하세요 저는 ${this.nickname}이고, 나이는 ${this.age}이에요`)
+        //     }
+        // }
+
+        // person.introduce()
+        // person2.introduce()
+
+        //생성자  (constructor)
+        // 사람 객체 찍어낼 수 있는 틀을 만들어보자
+        // 구조는 같되, 각 속성의 값은 개별적으로 만들어내보자
+        
+        // 생성자는 함수로 선언됨
+        // 객체 생성하는 역할을 하는 함수는 관례적으로 첫글자 대문자로 사용 
+        // ES6 version : class 예약어가 아예 생겨났음. 이를 이용해도 됨
+        // function Person(nickname, age) {
+        //     this.nickname = nickname
+        //     this.age = age
+        //     this.introduce = () => console.log(`안녕하세요 저는 ${this.nickname}이고, 나이는 ${this.age}이에요`)
+        // }
+
+
+
+        //introduce를 각 객체가 각각 가지고 있는 것이기 때문에 메모리 낭비 심함 : 공유한다면 메모리 절약 가능 
+        // 공통 메소드는 공유하는 형태로 바꿔줌  ===> prototype
+        // prototype
+        function Person(nickname, age) {
+            this.nickname = nickname
+            this.age = age
+        }
+        Person.prototype.introduce = () => console.log(`안녕하세요 저는 ${this.nickname}이고, 나이는 ${this.age}이에요`)
+
+        //인스턴스 
+        const person1 = new Person('일분이', 10)
+        const person2 = new Person('이분이', 8)
+        person1.introduce()
+        person2.introduce()
+
+
+        //card 실습
+        function Card(num, color) {
+            this.num = num
+            this.color = color
+            this.init()
+        }
+        // Card.prototype.width = 100
+        // Card.prototype.height = 150
+
+
+        // console.log(card1.color)
+        // console.log(card2.color)
+        // console.log(card1.width)
+        // console.log(card2.width)
+        
+        // prototype 또한 객체이기 때문에 이렇게 세팅 가능.
+        // 이렇게 생성할 때는 생성자를 따로 만들어주어야 함
+        // __proto__ :인스턴스 객체에 prototype 속성이 가리키는 애가 바로 이 객체 !
+        // 객체 리터럴 형태로 프로토타입 세팅해줄 때 원래의 속성을 다시 정의해주어야 함
+        // .형태는 하나의 프로토타입 속성을 추가해준 것이기 때문에 상관없었음 ( prototype.width)
+        // 
+
+        // 객체 리터럴!! 생성자
+        Card.prototype = {
+            constructor: Card,
+            init() {
+                const mainElem = document.createElement('div')
+                mainElem.style.color = this.color
+                mainElem.innerHTML = this.num
+                mainElem.classList.add('card')
+                document.body.appendChild(mainElem)
+            }
+        }
+
+        
+        const card1 = new Card(1, 'green')
+        const card2 = new Card(7, 'blue')
+
+        // console.log(document.querySelector('.card').style)
+        
+        
+        
+        
+
+    </script>
+</body>
+</html>
