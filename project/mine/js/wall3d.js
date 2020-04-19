@@ -55,7 +55,18 @@
     //윈도우 사이즈가 변경될 때 일어나는 이벤트
     window.addEventListener('resize', resizeHandler);
 
+
+    //stageElem 클릭 이벤트를 걸어서 그 위치에 일분이 붙이기 
+    stageElem.addEventListener('click', () => {
+        new Character()
+    })
+
+
     //문서 로드시 핸들러로 value 초기화
     resizeHandler()
+
+    // 생성자로 객체 붙여넣음
+    // new Character()
+
 
 })()
