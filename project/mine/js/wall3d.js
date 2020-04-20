@@ -6,6 +6,7 @@
     const houseElem = document.querySelector('.house')
     const barElem = document.querySelector('.progress-bar')
     const mousePos = {x : 0, y : 0}
+    const selectCharacterElem = document.querySelector('.select-character')
 
     // 창 크기에 따라서 스크롤 값 변경됨. 문서 전체 높이 (body의 높이) - 스크롤바 길이 : 스크롤 되는 범위 구할 수 있음 
     // 선언
@@ -57,11 +58,29 @@
 
 
     //stageElem 클릭 이벤트를 걸어서 그 위치에 일분이 붙이기 
-    stageElem.addEventListener('click', () => {
-        new Character()
+    stageElem.addEventListener('click', (e) => {
+        //%를 이용하여 left 값 조정 가능 
+        // console.log(e.clientX / window.innerWidth * 100)
+        // 객체를 param으로 넣어줌 
+        // 생성자에 넣지 않고 객체로 넣어주는 이유는 다양한 프로퍼티가 추가될 예정이기 떄문
+        // 따라서 character는 하나의 매개변수를 받되, 그 안에서 프로퍼티만 추가하여 사용할 수 있게 됨
+    
+        new Character({
+            xPos: e.clientX / window.innerWidth * 100,
+
+            // 각 인스턴스 객체 스피트 랜덤하게 작성
+            // 소수값 랜덤하게 리턴 : Math.random 
+            // * 0.5를 곱하여 더 느리게, + 0.2를 하여 좀 스피드 업
+            // 이런식으로 값과 스피드 조절함
+            speed : Math.random() * 0.5 + 0.2
+        })
     })
 
-
+    selectCharacterElem.addEventListener('click', (e) => {
+        // console.log(e.target.getAttribute('data-char'));
+        const value = e.target.getAttribute('data-char')
+        document.body.setAttribute('data-char', value)
+    })
     //문서 로드시 핸들러로 value 초기화
     resizeHandler()
 

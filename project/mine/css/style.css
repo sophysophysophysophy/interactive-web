@@ -2,6 +2,23 @@
     to { transform: rotateX(-10deg);}
 }
 
+@keyframes ani-running-leg {
+    from {
+        transform: rotateX(-30deg)
+    }
+    to {
+        transform: rotateX(30deg)
+    }
+}
+@keyframes ani-running-arm{
+    from {
+        transform: rotateY(30deg)
+    }
+    to {
+        transform: rotateY(-30deg)
+    }
+}
+
 /* reset */
 body {
     height: 500vw;
@@ -9,8 +26,11 @@ body {
     -webkit-overflow-scrolling: touch;
     color: #555;
     background: #fff000;
+    transition: background .5s;
 }
-
+body[data-char='ragirl'] {
+    background: #ff7200;
+}
 .world {
     position: fixed;
     left: 0;
@@ -220,7 +240,7 @@ body[data-char='ragirl'] .character-head {
     width: calc(920 / 948 * 100%);
     height: calc(750 / 1340 * 100%);
 }
-body[data-char='ragirl'] .character-head-face.face-front { background-image: url('../images/ragirl_head_front.png'); }
+[data-char='ragirl'] .character-head-face.face-front { background-image: url('../images/ragirl_head_front.png'); }
 body[data-char='ragirl'] .character-head-face.face-back { background-image: url('../images/ragirl_head_back.png'); }
 body[data-char='ragirl'] .character-torso {
     left: calc(273 / 948 * 100%);
